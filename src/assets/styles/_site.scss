@@ -1,0 +1,31 @@
+@import 'variables';
+
+html {
+  height: 100%;
+}
+
+body {
+  background: $background-main;
+  color: #ffffff;
+
+  @media (min-width: 960px) {
+    border-top: 0.4rem solid $primary-main;
+  }
+
+  /* Fixed Footer */
+  div#gatsby-focus-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+    padding-bottom: 5rem;
+  }
+
+  footer {
+    flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+  }
+  /* End Fixed Footer */
+}

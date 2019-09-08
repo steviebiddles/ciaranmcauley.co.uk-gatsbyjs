@@ -1,0 +1,12 @@
+@import '../../../assets/styles/variables';
+
+nav {
+  &.navigation-bottom {
+    float: right;
+
+    a {
+      color: $text-disabled;
+      text-decoration: none;
+    }
+  }
+}

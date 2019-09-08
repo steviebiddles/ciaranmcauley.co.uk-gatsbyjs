@@ -1,0 +1,9 @@
+@import '../../assets/styles/variables';
+
+footer {
+  &.desktop-footer {
+    background: $background-darker;
+    padding: 3rem 0 5rem 0;
+    color: $text-disabled;
+  }
+}
