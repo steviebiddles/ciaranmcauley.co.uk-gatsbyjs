@@ -96,7 +96,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   // Create posts pages
-  console.log(`POSTS: ${parseInt(process.env.POST_PER_PAGE, 10)}`);
   const posts = result.data.allFacebookPost.edges;
   const postsPerPage = parseInt(process.env.POST_PER_PAGE, 10) || 10;
   const numPages = Math.ceil(posts.length / postsPerPage);
