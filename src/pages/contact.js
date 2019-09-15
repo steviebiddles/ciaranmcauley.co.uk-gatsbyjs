@@ -3,7 +3,7 @@ import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Container from '@material-ui/core/Container';
 import { graphql } from 'gatsby';
-import DOMPurify from 'dompurify';
+// import DOMPurify from 'dompurify';
 import { Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 
@@ -48,7 +48,8 @@ const ContactPage = ({ data }) => {
           <Typography
             variant={'body1'}
             component={'div'}
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
+            // dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
+            dangerouslySetInnerHTML={{ __html: html }}
           />
           <hr />
           <Typography variant={'h5'} component={'h2'} gutterBottom>

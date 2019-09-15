@@ -1,6 +1,6 @@
 import React from 'react';
 import Seo from '../components/seo';
-import DOMPurify from 'dompurify';
+// import DOMPurify from 'dompurify';
 import Container from '@material-ui/core/Container';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
@@ -26,7 +26,8 @@ const AboutPage = ({ data }) => {
           <Typography
             variant={'body1'}
             component={'div'}
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
+            // dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html).toString() }}
+            dangerouslySetInnerHTML={{ __html: html }}
           />
         </Container>
       </Layout>
