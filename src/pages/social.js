@@ -2,13 +2,21 @@ import React from 'react';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Container from '@material-ui/core/Container';
+import { Typography } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
+
+const pageTitle = 'Social';
 
 const SocialPage = () => (
   <>
-    <Seo title="Social" />
-    <Layout pageTitle="Social">
-      <Container maxWidth="lg">
-        <h1>Social</h1>
+    <Seo title={pageTitle} />
+    <Layout title={pageTitle}>
+      <Container maxWidth={'lg'}>
+        <Hidden smDown>
+          <Typography variant={'h4'} component={'h1'}>
+            {pageTitle}
+          </Typography>
+        </Hidden>
       </Container>
     </Layout>
   </>

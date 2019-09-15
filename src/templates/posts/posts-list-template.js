@@ -5,6 +5,24 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'gatsby';
 import Container from '@material-ui/core/Container';
 import Seo from '../../components/seo';
+import { Typography } from '@material-ui/core';
+
+const pageTitle = 'Posts';
+const Post = props => {
+  const { id, message } = props;
+
+  return (
+    <>
+      <article>
+        <Typography variant={'h4'} component={'h1'}>
+          Post {id}
+        </Typography>
+        <Typography variant={'body1'}>{message}</Typography>
+      </article>
+      <hr />
+    </>
+  );
+};
 
 const PostList = ({ data, pageContext }) => {
   const { currentPage, numPages } = pageContext;
@@ -18,27 +36,22 @@ const PostList = ({ data, pageContext }) => {
 
   return (
     <>
-      <Seo title="Posts" />
-      <Layout pageTitle="Posts">
-        <Container maxWidth="lg">
+      <Seo title={pageTitle} />
+      <Layout title={pageTitle}>
+        <Container maxWidth={'lg'}>
           {facebookPosts.edges.map((edge, index) => {
             const { id, message } = edge.node;
 
-            return (
-              <div key={index}>
-                <h1>Post {id}</h1>
-                {message}
-              </div>
-            );
+            return <Post key={index} id={id} message={message} />;
           })}
 
           {!isFirst && (
             <Button
               component={Link}
               to={`/posts/${prevPage}`}
-              rel="prev"
-              variant="contained"
-              color="primary"
+              rel={'prev'}
+              variant={'contained'}
+              color={'primary'}
             >
               ← Previous Page
             </Button>
@@ -48,9 +61,9 @@ const PostList = ({ data, pageContext }) => {
             <Button
               component={Link}
               to={`/posts/${nextPage}`}
-              rel="next"
-              variant="contained"
-              color="primary"
+              rel={'next'}
+              variant={'contained'}
+              color={'primary'}
             >
               Next Page →
             </Button>

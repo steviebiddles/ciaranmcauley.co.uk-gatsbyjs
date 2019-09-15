@@ -1,0 +1,16 @@
+{
+  "locations": [
+    {
+      "address": "1 Main Street",
+      "townCity": "Belfast",
+      "postCode": "BT1 1AA",
+      "country": "N. Ireland"
+    },
+    {
+      "address": "101 Hillview Lane",
+      "townCity": "Leeds",
+      "postCode": "LN1 1ZZ",
+      "country": "England"
+    }
+  ]
+}

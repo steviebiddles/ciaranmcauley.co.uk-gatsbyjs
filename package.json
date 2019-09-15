@@ -11,6 +11,7 @@
     "@material-ui/styles": "^4.3.3",
     "axios": "^0.19.0",
     "clsx": "^1.0.4",
+    "dompurify": "^1.0.11",
     "dotenv": "^8.1.0",
     "gatsby": "^2.13.73",
     "gatsby-image": "^2.2.17",

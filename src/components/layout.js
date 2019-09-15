@@ -14,7 +14,7 @@ function Layout(props) {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Header pageTitle={props.pageTitle} />
+        <Header title={props.title} />
         {/*<h1>Current width: {width}</h1>*/}
         <main>{children}</main>
         <Footer />

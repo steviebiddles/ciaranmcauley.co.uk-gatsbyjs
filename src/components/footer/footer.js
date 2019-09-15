@@ -2,6 +2,7 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
+import Typography from '@material-ui/core/Typography';
 import styles from './footer.module.scss';
 import NavigationBottom from '../navigation/bottom';
 import NavigationIcon from '../navigation/icon';
@@ -14,7 +15,7 @@ const Footer = () => {
           <Container maxWidth="lg">
             <Grid container>
               <Grid item xs={6}>
-                Copyright &copy; 2019
+                <Typography variant="body1">Copyright &copy; 2019</Typography>
               </Grid>
               <Grid item xs={6}>
                 <NavigationBottom />
