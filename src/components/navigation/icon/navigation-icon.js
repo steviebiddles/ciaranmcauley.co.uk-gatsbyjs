@@ -43,7 +43,6 @@ const NavigationIcon = () => {
   const toggleDrawer = (side, open) => event => {
     event.preventDefault();
     const element = event.target;
-    console.log(element);
     element.classList.remove('Mui-selected');
 
     if (

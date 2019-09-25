@@ -6,6 +6,7 @@ import { graphql } from 'gatsby';
 // import DOMPurify from 'dompurify';
 import { Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
+import Img from 'gatsby-image';
 
 const Address = props => {
   const { address, townCity, postCode, country } = props.location;
@@ -28,16 +29,17 @@ const Address = props => {
 };
 
 const ContactPage = ({ data }) => {
-  const { childMarkdownRemark } = data.content;
-  const { title } = childMarkdownRemark.frontmatter;
+  const { content, locations, gatsbyLogo } = data;
+  const { childMarkdownRemark } = content;
+  const { title, keywords } = childMarkdownRemark.frontmatter;
   const { html } = childMarkdownRemark;
-  const {
-    childJsonJson: { locations },
-  } = data.locations;
+
+  const { childJsonJson } = locations;
+  const { childImageSharp } = gatsbyLogo;
 
   return (
     <>
-      <Seo title={title} />
+      <Seo title={title} keywords={keywords} />
       <Layout title={title}>
         <Container maxWidth={'lg'}>
           <Hidden smDown>
@@ -51,11 +53,16 @@ const ContactPage = ({ data }) => {
             // dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
             dangerouslySetInnerHTML={{ __html: html }}
           />
+          <hr/>
+          <Typography variant={'h5'} component={'h2'} gutterBottom>
+            Image
+          </Typography>
+          <Img fixed={childImageSharp.fixed} fadeIn={false} alt="Ciaran McAuley logo" />
           <hr />
           <Typography variant={'h5'} component={'h2'} gutterBottom>
             Locations
           </Typography>
-          {locations.map((location, index) => {
+          {childJsonJson.locations.map((location, index) => {
             return <Address key={index} location={location} />;
           })}
         </Container>
@@ -73,6 +80,7 @@ export const query = graphql`
       childMarkdownRemark {
         frontmatter {
           title
+          keywords
         }
         html
       }
@@ -88,6 +96,17 @@ export const query = graphql`
           country
           postCode
           townCity
+        }
+      }
+    }
+    
+    gatsbyLogo: file(
+      sourceInstanceName: { eq: "images" }
+      relativePath: { eq: "gatsby-logo.png" }
+    ) {
+      childImageSharp {
+        fixed(width: 100) {
+          ...GatsbyImageSharpFixed
         }
       }
     }

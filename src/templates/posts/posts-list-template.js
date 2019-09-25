@@ -2,25 +2,34 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../../components/layout';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import { Link } from 'gatsby';
 import Container from '@material-ui/core/Container';
 import Seo from '../../components/seo';
 import { Typography } from '@material-ui/core';
 
 const pageTitle = 'Posts';
+
 const Post = props => {
-  const { id, message } = props;
+  const { id, message, createdTime } = props;
 
   return (
-    <>
-      <article>
-        <Typography variant={'h4'} component={'h1'}>
-          Post {id}
-        </Typography>
-        <Typography variant={'body1'}>{message}</Typography>
-      </article>
-      <hr />
-    </>
+    <article style={{ marginTop: '1rem' }}>
+      <Card>
+        <CardContent>
+          <Typography color="textSecondary" gutterBottom>
+            Post #{id}
+          </Typography>
+          <Typography variant="body2" component="p" gutterBottom>
+            {message}
+          </Typography>
+          <Typography color="textSecondary" component="p">
+            {createdTime}
+          </Typography>
+        </CardContent>
+      </Card>
+    </article>
   );
 };
 
@@ -40,10 +49,12 @@ const PostList = ({ data, pageContext }) => {
       <Layout title={pageTitle}>
         <Container maxWidth={'lg'}>
           {facebookPosts.edges.map((edge, index) => {
-            const { id, message } = edge.node;
+            const { id, message, createdTime } = edge.node;
 
-            return <Post key={index} id={id} message={message} />;
+            return <Post key={index} id={id} message={message} createdTime={createdTime} />;
           })}
+
+          <hr />
 
           {!isFirst && (
             <Button
@@ -85,6 +96,7 @@ export const query = graphql`
         node {
           id
           message
+          createdTime(formatString: "MMMM Do, YYYY")
         }
       }
     }

@@ -3,19 +3,20 @@ module.exports = {
     title: `DJ Ciaran McAuley`,
     description: `Updates, events, and all about DJ Ciaran McAuley.`,
     author: `Ciaran McAuley`,
+    keywords: `DJ, Ciaran McAuley, Ireland`,
   },
   plugins: [
     `gatsby-plugin-emotion`,
     `gatsby-plugin-material-ui`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-transformer-remark`,
-    `gatsby-transformer-json`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
     `gatsby-plugin-sass`,
+    `gatsby-transformer-sharp`,
+    `gatsby-transformer-remark`,
+    `gatsby-transformer-json`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
