@@ -8,15 +8,14 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import OpenInNew from '@material-ui/icons/OpenInNew';
 import * as moment from 'moment';
-
-import './event.scss';
 import Grid from '@material-ui/core/Grid';
 import NavigationBottom from '../navigation/bottom';
+import SaveIcon from '@material-ui/icons/Save';
+
+import './event.scss';
 
 const Event = ({ event }) => {
   const startDateTime = moment(event.startTime);
-  const startDateTimeUTC = moment(event.startTime);
-  const endDate = moment(event.endTime);
 
   return (
     <Card raised={true} square={true} className={'event'}>
@@ -28,24 +27,35 @@ const Event = ({ event }) => {
         title={event.name}
       />
       <CardContent>
-        <Typography variant="subtitle2">
-          {startDateTime.format('ddd, Do MMM \\a\\t HH:mm').toLocaleUpperCase()}
+        <Typography gutterBottom variant="subtitle1" color={'primary'}>
+          {startDateTime.format('ddd, Do MMMM YYYY')}
         </Typography>
-        <Typography gutterBottom variant={'h6'} component="h2">
+        <Typography variant={'h6'} component={'h2'} color={'textPrimary'}>
           {event.name}
-          {/*https://www.facebook.com/events/{event.eventId}/*/}
+        </Typography>
+        <Typography gutterBottom variant={'subtitle2'} color={'textSecondary'}>
+          {event.place.name} - {event.place.location.city}, {event.place.location.country}
         </Typography>
       </CardContent>
-      <CardActions>
-        {/*<IconButton size={'small'} aria-label="open">
-          <OpenInNew />
-        </IconButton>*/}
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+      <CardActions className={'event-actions'}>
+        {event.ticketUri && (
+          <a
+            href={event.ticketUri}
+            target={'_blank'}
+          >
+            <Button size="small" color="primary">
+              Get Tickets
+            </Button>
+          </a>
+        )}
+        <a
+          href={`https://www.facebook.com/events/${event.eventId}`}
+          target={'_blank'}
+        >
+          <Button size="small" color="primary">
+            Full Details
+          </Button>
+        </a>
       </CardActions>
     </Card>
   );
