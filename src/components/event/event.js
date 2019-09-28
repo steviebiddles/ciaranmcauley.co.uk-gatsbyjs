@@ -5,12 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import OpenInNew from '@material-ui/icons/OpenInNew';
 import * as moment from 'moment';
-import Grid from '@material-ui/core/Grid';
-import NavigationBottom from '../navigation/bottom';
-import SaveIcon from '@material-ui/icons/Save';
 
 import './event.scss';
 
