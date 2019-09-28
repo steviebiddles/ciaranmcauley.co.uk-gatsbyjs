@@ -32,7 +32,6 @@ const useStyles = makeStyles({
 
 const NavigationIcon = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -42,8 +41,11 @@ const NavigationIcon = () => {
 
   const toggleDrawer = (side, open) => event => {
     event.preventDefault();
-    const element = event.target;
-    element.classList.remove('Mui-selected');
+
+    const selected = document.getElementsByClassName('Mui-selected');
+    for (let i = 0; i < selected.length; i++) {
+      selected[i].classList.remove('Mui-selected');
+    }
 
     if (
       event.type === 'keydown' &&
@@ -87,12 +89,8 @@ const NavigationIcon = () => {
   );
 
   return (
-    <>
+    <nav>
       <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
         showLabels
         className={classes.root}
       >
@@ -102,6 +100,7 @@ const NavigationIcon = () => {
           to="/posts/"
           value="posts"
           label="Posts"
+          partiallyActive={true}
           icon={<UpdateIcon />}
         />
         <BottomNavigationAction
@@ -134,7 +133,7 @@ const NavigationIcon = () => {
       >
         {fullList('bottom')}
       </Drawer>
-    </>
+    </nav>
   );
 };
 
