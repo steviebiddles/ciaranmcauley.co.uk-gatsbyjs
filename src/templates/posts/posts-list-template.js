@@ -8,6 +8,7 @@ import { Link } from 'gatsby';
 import Container from '@material-ui/core/Container';
 import Seo from '../../components/seo';
 import { Typography } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
 
 const pageTitle = 'Posts';
 
@@ -48,6 +49,12 @@ const PostList = ({ data, pageContext }) => {
       <Seo title={pageTitle} />
       <Layout title={pageTitle}>
         <Container maxWidth={'lg'}>
+          <Hidden smDown>
+            <Typography variant={'srOnly'} component={'h1'}>
+              {pageTitle}
+            </Typography>
+          </Hidden>
+
           {facebookPosts.edges.map((edge, index) => {
             const { id, message, createdTime } = edge.node;
 

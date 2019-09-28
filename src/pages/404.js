@@ -11,7 +11,7 @@ const NotFoundPage = () => (
     <Layout pageTitle="Oops! Not Found">
       <Container maxWidth="lg">
         <Hidden smDown>
-          <Typography variant="h4" component="h1">Oops! Not Found</Typography>
+          <Typography className={'page-title'} variant={'h5'} component={'h1'}>Oops! Not Found</Typography>
         </Hidden>
         <Typography variant="body1">You just hit a route that doesn't exist... the sadness :-(</Typography>
       </Container>

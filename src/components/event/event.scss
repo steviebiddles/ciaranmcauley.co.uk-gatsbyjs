@@ -1,0 +1,31 @@
+@import '../../assets/styles/variables';
+
+.event {
+  margin: 0 auto 1rem auto;
+  max-width: 720px;
+
+  &-date {
+    text-align: center;
+    border: 1px solid $primary-main;
+    border-radius: 0.500rem;
+
+    &-day {
+      padding: 1rem 0 1rem 0;
+    }
+
+    &-month {
+      background: $primary-main;
+      padding: 0.250rem 0 0.250rem 0;
+      border-bottom-left-radius: 0.400rem;
+      border-bottom-right-radius: 0.400rem;
+    }
+  }
+
+  &-details {
+    padding-left: 1rem;
+
+    @media (min-width: 960px) {
+      padding-left: 2rem;
+    }
+  }
+}

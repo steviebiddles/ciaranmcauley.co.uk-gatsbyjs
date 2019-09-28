@@ -26,6 +26,7 @@ function Seo({ description, lang, meta, title, keywords }) {
     `
   );
 
+  const metaTitle = title !== 'Homepage' ? `${title} | ${site.siteMetadata.title}` : site.siteMetadata.title;
   const metaDescription = description || site.siteMetadata.description;
   const metaKeywords = keywords || site.siteMetadata.keywords;
 
@@ -34,8 +35,7 @@ function Seo({ description, lang, meta, title, keywords }) {
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={ title !== 'Homepage' ? `%s | ${site.siteMetadata.title}` : site.siteMetadata.title }
+      title={metaTitle}
       link={[
         {
           rel: `stylesheet`,
@@ -53,7 +53,7 @@ function Seo({ description, lang, meta, title, keywords }) {
         },
         {
           property: `og:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           property: `og:description`,
@@ -73,7 +73,7 @@ function Seo({ description, lang, meta, title, keywords }) {
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           name: `twitter:description`,

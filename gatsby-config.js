@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: `DJ Ciaran McAuley`,
-    description: `Updates, events, and all about DJ Ciaran McAuley.`,
+    description: `Ciaran McAuley - Producer / DJ and formerly one half of renowned trance duo Walsh & McAuley. One of the brightest emeralds in Ireland's rich trance history, one of Ireland's much vaunted new breed of trance producer.`,
     author: `Ciaran McAuley`,
-    keywords: `DJ, Ciaran McAuley, Ireland`,
+    keywords: `DJ, Producer, Ciaran McAuley, Ireland, Walsh & McAuley, Trance`,
   },
   plugins: [
     `gatsby-plugin-emotion`,

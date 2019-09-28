@@ -1,8 +1,6 @@
 ---
-slug: contact
 title: Contact
 description: This is the contact page
-keywords: contact, get in touch, chat, bookings
 ---
 
 <p>Fusce id lorem ut ipsum vehicula tempor. Suspendisse vitae porttitor felis. Ut venenatis ante sit amet mauris tincidunt, vel pharetra diam volutpat.</p>

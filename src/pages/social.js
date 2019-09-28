@@ -13,7 +13,7 @@ const SocialPage = () => (
     <Layout title={pageTitle}>
       <Container maxWidth={'lg'}>
         <Hidden smDown>
-          <Typography variant={'h4'} component={'h1'}>
+          <Typography variant={'srOnly'} component={'h1'}>
             {pageTitle}
           </Typography>
         </Hidden>

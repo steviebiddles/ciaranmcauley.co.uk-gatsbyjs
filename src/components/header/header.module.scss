@@ -1,4 +1,10 @@
 header {
+  h1 {
+    text-transform: uppercase;
+  }
+
+  margin: 0 0 0.500rem 0;
+
   &.desktop-header {
     margin: 1.500rem 0 3.500rem 0;
   }

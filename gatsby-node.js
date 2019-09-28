@@ -33,6 +33,7 @@ exports.sourceNodes = async ({
     facebookEvents.forEach(facebookEvent => {
       const node = {
         id: createNodeId(`FacebookEvent-${facebookEvent.id}`),
+        eventId: facebookEvent.id,
         name: facebookEvent.name,
         cover: facebookEvent.cover,
         startTime: facebookEvent.start_time,
@@ -40,6 +41,7 @@ exports.sourceNodes = async ({
         place: facebookEvent.place,
         ticketUri: facebookEvent.ticket_uri,
         attendingCount: facebookEvent.attending_count,
+        interestedCount: facebookEvent.interested_count,
         internal: {
           type: 'FacebookEvent',
           contentDigest: createContentDigest(facebookEvent),
@@ -54,6 +56,7 @@ exports.sourceNodes = async ({
     facebookPosts.forEach(facebookPost => {
       const node = {
         id: createNodeId(`FacebookPost-${facebookPost.id}`),
+        postId: facebookPost.id,
         message: facebookPost.message,
         picture: facebookPost.picture,
         fullPicture: facebookPost.full_picture,

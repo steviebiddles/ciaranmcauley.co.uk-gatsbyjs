@@ -3,34 +3,30 @@ import Typography from '@material-ui/core/Typography';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Container from '@material-ui/core/Container';
+import Event from '../components/event';
 import { graphql } from 'gatsby';
 import Hidden from '@material-ui/core/Hidden';
 
-const pageTitle = 'Events';
-
 const EventPage = ({ data }) => {
+  const { childMarkdownRemark } = data.page;
+  const { title, description } = childMarkdownRemark.frontmatter;
   const { allFacebookEvent: facebookEvents } = data;
-  const events = facebookEvents.edges.map((edge, index) => {
-    const { name } = edge.node;
-
-    return (
-      <li key={index}>
-        <Typography variant={'body1'}>{name}</Typography>
-      </li>
-    );
-  });
 
   return (
     <>
-      <Seo title={pageTitle} />
-      <Layout title={pageTitle}>
-        <Container maxWidth={'lg'}>
+      <Seo title={title} description={description} />
+      <Layout title={title}>
+        <Container maxWidth={'md'}>
           <Hidden smDown>
-            <Typography variant={'h4'} component={'h1'}>
-              {pageTitle}
+            <Typography variant={'srOnly'} component={'h1'}>
+              {title}
             </Typography>
           </Hidden>
-          <ul>{events}</ul>
+          <section>
+            {facebookEvents.edges.map((edge, index) => {
+              return <Event key={index} event={edge.node}/>
+            })}
+          </section>
         </Container>
       </Layout>
     </>
@@ -43,12 +39,15 @@ export const query = graphql`
       edges {
         node {
           id
+          eventId
+          name
           attendingCount
+          interestedCount
           cover {
             source
           }
+          startTime
           endTime
-          name
           place {
             name
             location {
@@ -56,8 +55,19 @@ export const query = graphql`
               country
             }
           }
-          startTime
           ticketUri
+        }
+      }
+    }
+
+    page: file(
+      sourceInstanceName: { eq: "markdown" }
+      relativePath: { eq: "events.md" }
+    ) {
+      childMarkdownRemark {
+        frontmatter {
+          title
+          description
         }
       }
     }

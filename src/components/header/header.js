@@ -9,7 +9,7 @@ import Logo from '../logo';
 import NavigationTop from '../navigation/top';
 import styles from './header.module.scss';
 
-const Header = props => {
+const Header = ({ title }) => {
   return (
     <>
       <Hidden smDown>
@@ -31,7 +31,7 @@ const Header = props => {
         <header>
           <AppBar position="static">
             <Toolbar>
-              <Typography variant="h6">{props.title}</Typography>
+              <Typography variant={'h6'} component={'h1'}>{title}</Typography>
             </Toolbar>
           </AppBar>
         </header>

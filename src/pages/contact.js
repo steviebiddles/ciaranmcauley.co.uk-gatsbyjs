@@ -3,7 +3,6 @@ import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Container from '@material-ui/core/Container';
 import { graphql } from 'gatsby';
-// import DOMPurify from 'dompurify';
 import { Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import Img from 'gatsby-image';
@@ -31,7 +30,7 @@ const Address = props => {
 const ContactPage = ({ data }) => {
   const { content, locations, gatsbyLogo } = data;
   const { childMarkdownRemark } = content;
-  const { title, keywords } = childMarkdownRemark.frontmatter;
+  const { title, description } = childMarkdownRemark.frontmatter;
   const { html } = childMarkdownRemark;
 
   const { childJsonJson } = locations;
@@ -39,18 +38,17 @@ const ContactPage = ({ data }) => {
 
   return (
     <>
-      <Seo title={title} keywords={keywords} />
+      <Seo title={title} description={description} />
       <Layout title={title}>
         <Container maxWidth={'lg'}>
           <Hidden smDown>
-            <Typography variant={'h4'} component={'h1'}>
+            <Typography variant={'srOnly'} component={'h1'}>
               {title}
             </Typography>
           </Hidden>
           <Typography
             variant={'body1'}
             component={'div'}
-            // dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
             dangerouslySetInnerHTML={{ __html: html }}
           />
           <hr/>
@@ -80,7 +78,7 @@ export const query = graphql`
       childMarkdownRemark {
         frontmatter {
           title
-          keywords
+          description
         }
         html
       }
