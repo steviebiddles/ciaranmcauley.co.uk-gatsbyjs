@@ -13,7 +13,7 @@ const instance = axios.create({
 const fetchEvents = async (limit = 50) => {
   const params = {
     access_token: accessToken,
-    fields: 'id,name,start_time,end_time,cover,place,attending_count,ticket_uri',
+    fields: 'id,name,start_time,end_time,cover,place,attending_count,ticket_uri,interested_count',
     time_filter: 'upcoming',
     limit,
   };
