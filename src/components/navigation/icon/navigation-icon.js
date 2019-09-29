@@ -32,19 +32,21 @@ const useStyles = makeStyles({
 
 const NavigationIcon = () => {
   const classes = useStyles();
-  const [state, setState] = useState({
+  const [drawerState, setDrawerState] = useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
 
-  const toggleDrawer = (side, open) => event => {
+  const toggleDrawer = (side, open, pageSelected = false) => event => {
     event.preventDefault();
 
-    const selected = document.getElementsByClassName('Mui-selected');
-    for (let i = 0; i < selected.length; i++) {
-      selected[i].classList.remove('Mui-selected');
+    if (pageSelected) {
+      const selected = document.getElementsByClassName('Mui-selected');
+      for (let i = 0; i < selected.length; i++) {
+        selected[i].classList.remove('Mui-selected');
+      }
     }
 
     if (
@@ -54,31 +56,31 @@ const NavigationIcon = () => {
       return;
     }
 
-    setState({ ...state, [side]: open });
+    setDrawerState({ ...drawerState, [side]: open });
   };
 
-  const fullList = side => (
+  const fullDrawerList = side => (
     <div
       className={classes.fullList}
       role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
+      onClick={toggleDrawer(side, false, true)}
+      onKeyDown={toggleDrawer(side, false, true)}
     >
       <List>
-        <ListItem button key="0" component={Link} to="/about">
+        <ListItem button key="0" component={Link} to="/about/">
           <ListItemIcon>
             <InfoOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="About" />
         </ListItem>
-        <ListItem button key="1" component={Link} to="/contact">
+        <ListItem button key="1" component={Link} to="/contact/">
           <ListItemIcon>
             <EmailOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="Contact" />
         </ListItem>
         <Divider />
-        <ListItem button key="2" component={Link} to="/privacy-policy">
+        <ListItem button key="2" component={Link} to="/privacy-policy/">
           <ListItemIcon>
             <LockOutlinedIcon />
           </ListItemIcon>
@@ -90,10 +92,7 @@ const NavigationIcon = () => {
 
   return (
     <nav>
-      <BottomNavigation
-        showLabels
-        className={classes.root}
-      >
+      <BottomNavigation showLabels className={classes.root}>
         <BottomNavigationAction
           component={Link}
           activeClassName="Mui-selected"
@@ -128,10 +127,10 @@ const NavigationIcon = () => {
       </BottomNavigation>
       <Drawer
         anchor="bottom"
-        open={state.bottom}
+        open={drawerState.bottom}
         onClose={toggleDrawer('bottom', false)}
       >
-        {fullList('bottom')}
+        {fullDrawerList('bottom')}
       </Drawer>
     </nav>
   );

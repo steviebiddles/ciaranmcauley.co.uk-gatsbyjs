@@ -25,7 +25,7 @@ const Event = ({ event }) => {
         <Typography gutterBottom variant="subtitle1" color={'primary'}>
           {startDateTime.format('ddd, Do MMMM YYYY')}
         </Typography>
-        <Typography variant={'h6'} component={'h2'} color={'textPrimary'}>
+        <Typography variant={'h4'} component={'h2'} color={'textPrimary'}>
           {event.name}
         </Typography>
         <Typography gutterBottom variant={'subtitle2'} color={'textSecondary'}>

@@ -6,17 +6,29 @@ import Container from '@material-ui/core/Container';
 import Event from '../components/event';
 import { graphql } from 'gatsby';
 import Hidden from '@material-ui/core/Hidden';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  root: {
+    ['@media (max-width: 960px)']: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+  },
+});
 
 const EventPage = ({ data }) => {
   const { childMarkdownRemark } = data.page;
   const { title, description } = childMarkdownRemark.frontmatter;
   const { allFacebookEvent: facebookEvents } = data;
 
+  const styles = useStyles();
+
   return (
     <>
       <Seo title={title} description={description} />
       <Layout title={title}>
-        <Container maxWidth={'md'}>
+        <Container maxWidth={'md'} className={styles.root}>
           <Hidden smDown>
             <Typography variant={'srOnly'} component={'h1'}>
               {title}
