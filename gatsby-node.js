@@ -5,6 +5,7 @@
  */
 
 const path = require('path');
+const querystring = require('querystring');
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -12,6 +13,9 @@ const {
   getEvents: FacebookEvents,
   getPosts: FacebookPosts,
 } = require('./src/providers/facebook/facebook-provider');
+const {
+  fetchOEmbedData,
+} = require('./src/utils/http-client/oembed-http-client');
 
 exports.sourceNodes = async ({
   actions,
@@ -53,24 +57,52 @@ exports.sourceNodes = async ({
   }
 
   if (facebookPosts) {
-    facebookPosts.forEach(facebookPost => {
-      const node = {
-        id: createNodeId(`FacebookPost-${facebookPost.id}`),
-        postId: facebookPost.id,
-        message: facebookPost.message,
-        picture: facebookPost.picture,
-        fullPicture: facebookPost.full_picture,
-        attachments: facebookPost.attachments,
-        permalinkUrl: facebookPost.permalink_url,
-        createdTime: facebookPost.created_time,
-        internal: {
-          type: 'FacebookPost',
-          contentDigest: createContentDigest(facebookPost),
-        },
-      };
+    for (let i = 0; i < facebookPosts.length; i++) {
+      const facebookPost = facebookPosts[i];
 
-      actions.createNode(node);
-    });
+      if (facebookPost.message) {
+        let iFrameMarkup;
+
+        if (facebookPost.attachments) {
+          const { media_type, target, url } = facebookPost.attachments.data[0];
+
+          if (media_type === 'video' && !url.includes('youtu.be')) { // Todo: Work this out it will be nice
+            const oEmbed = await fetchOEmbedData('facebook', target.url);
+            iFrameMarkup = `<iframe
+              class="facebook-iframe"
+              src="https://www.facebook.com/plugins/video.php?${querystring.stringify({ href: oEmbed.url, show_text: false })}"
+              style="width:100%;border:none;overflow:hidden;"
+              allowTransparency="true"
+              allow="encrypted-media"
+            />`;
+          }
+
+          if (media_type === 'music' && url.includes('soundcloud.com')) {
+            const oEmbed = await fetchOEmbedData('soundCloud', url);
+            iFrameMarkup = oEmbed.html;
+          }
+        }
+
+        const node = {
+          id: createNodeId(`FacebookPost-${facebookPost.id}`),
+          postId: facebookPost.id,
+          message: facebookPost.message,
+          // picture: facebookPost.picture,
+          fullPicture: facebookPost.full_picture,
+          attachments: facebookPost.attachments,
+          iFrameMarkup,
+          permalinkUrl: facebookPost.permalink_url,
+          messageTags: facebookPost.message_tags,
+          createdTime: facebookPost.created_time,
+          internal: {
+            type: 'FacebookPost',
+            contentDigest: createContentDigest(facebookPost),
+          },
+        };
+
+        actions.createNode(node);
+      }
+    }
   }
 };
 

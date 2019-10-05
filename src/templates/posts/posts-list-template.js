@@ -3,32 +3,85 @@ import { graphql } from 'gatsby';
 import Layout from '../../components/layout';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { Link } from 'gatsby';
 import Container from '@material-ui/core/Container';
 import Seo from '../../components/seo';
-import { Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
+import { blue } from '@material-ui/core/colors';
+
+import './post-list.scss';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActions from '@material-ui/core/CardActions';
+
+const useStyles = makeStyles({
+  root: {
+    ['@media (max-width: 960px)']: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+  },
+  avatar: {
+    backgroundColor: blue[500],
+  },
+});
 
 const pageTitle = 'Posts';
 
-const Post = props => {
-  const { id, message, createdTime } = props;
+const Post = ({ node }) => {
+  const { message, createdTime, iFrameMarkup, fullPicture, permalinkUrl, messageTags } = node;
+  const styles = useStyles();
 
   return (
-    <article style={{ marginTop: '1rem' }}>
+    <article>
       <Card>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" className={styles.avatar}>
+              F
+            </Avatar>
+          }
+          title={'Ciaran McAuley'}
+          subheader={createdTime}
+        />
+        {iFrameMarkup && (
+          <section
+            style={{ textAlign: 'center' }}
+            dangerouslySetInnerHTML={{ __html: iFrameMarkup }}
+          />
+        )}
+        {!iFrameMarkup && fullPicture && (
+          <CardMedia
+            component={'img'}
+            alt={`Post cover image`}
+            width={'720'}
+            image={fullPicture}
+            title={'Post cover image'}
+          />
+        )}
         <CardContent>
-          <Typography color="textSecondary" gutterBottom>
-            Post #{id}
-          </Typography>
           <Typography variant="body2" component="p" gutterBottom>
             {message}
           </Typography>
-          <Typography color="textSecondary" component="p">
-            {createdTime}
-          </Typography>
+          {messageTags && (
+            messageTags.map((tag) => {
+              return <span className={'tag'}>#{tag.name} </span>
+            })
+          )}
         </CardContent>
+        <CardActions className={'post-actions'}>
+          <a
+            href={permalinkUrl}
+            target={'_blank'}
+          >
+            <Button size="small" color="primary">
+              Full Details
+            </Button>
+          </a>
+        </CardActions>
       </Card>
     </article>
   );
@@ -44,21 +97,20 @@ const PostList = ({ data, pageContext }) => {
 
   const { allFacebookPost: facebookPosts } = data;
 
+  const styles = useStyles();
+
   return (
     <>
       <Seo title={pageTitle} />
       <Layout title={pageTitle}>
-        <Container maxWidth={'lg'}>
+        <Container maxWidth={'lg'} className={styles.root}>
           <Hidden smDown>
             <Typography variant={'srOnly'} component={'h1'}>
               {pageTitle}
             </Typography>
           </Hidden>
-
           {facebookPosts.edges.map((edge, index) => {
-            const { id, message, createdTime } = edge.node;
-
-            return <Post key={index} id={id} message={message} createdTime={createdTime} />;
+            return <Post key={index} node={edge.node} />;
           })}
 
           <hr />
@@ -103,7 +155,13 @@ export const query = graphql`
         node {
           id
           message
+          fullPicture
+          iFrameMarkup
+          permalinkUrl
           createdTime(formatString: "MMMM Do, YYYY")
+          messageTags {
+            name
+          }
         }
       }
     }

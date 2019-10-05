@@ -17,7 +17,12 @@ export default () => (
             {pageTitle}
           </Typography>
         </Hidden>
-        <Typography variant={'body1'}>Hello World!</Typography>
+        <Typography variant={'body1'}>Hello World! 123</Typography>
+        <div
+          className="fb-video"
+          data-href="https://www.facebook.com/facebook/videos/381768009384012/"
+          data-show-text="false"
+        />
       </Container>
     </Layout>
   </>

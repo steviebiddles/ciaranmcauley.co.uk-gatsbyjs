@@ -36,7 +36,7 @@ const fetchEvents = async (limit = 50) => {
 const fetchPosts = async (limit = 50) => {
   const params = {
     access_token: accessToken,
-    fields: 'id,created_time,full_picture,message,picture,place,attachments{description,media,media_type,target,title,type,url},permalink_url',
+    fields: 'id,created_time,full_picture,message,picture,place,attachments{description,media,media_type,target,title,type,url},permalink_url,message_tags',
     limit,
   };
 
