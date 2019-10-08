@@ -32,7 +32,14 @@ const useStyles = makeStyles({
 const pageTitle = 'Posts';
 
 const Post = ({ node }) => {
-  const { message, createdTime, iFrameMarkup, fullPicture, permalinkUrl, messageTags } = node;
+  const {
+    message,
+    createdTime,
+    iFrameMarkup,
+    fullPicture,
+    permalinkUrl,
+    messageTags,
+  } = node;
   const styles = useStyles();
 
   return (
@@ -63,20 +70,17 @@ const Post = ({ node }) => {
           />
         )}
         <CardContent>
-          <Typography variant="body2" component="p" gutterBottom>
+          <Typography component="p" gutterBottom>
             {message}
           </Typography>
-          {messageTags && (
+          {/*{messageTags && (
             messageTags.map((tag) => {
-              return <span className={'tag'}>#{tag.name} </span>
+              return <Typography variant="body2" component={'span'} className={'tag'}>#{tag.name} </Typography>
             })
-          )}
+          )}*/}
         </CardContent>
         <CardActions className={'post-actions'}>
-          <a
-            href={permalinkUrl}
-            target={'_blank'}
-          >
+          <a href={permalinkUrl} target={'_blank'}>
             <Button size="small" color="primary">
               Full Details
             </Button>

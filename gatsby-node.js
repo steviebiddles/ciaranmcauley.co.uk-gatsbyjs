@@ -71,7 +71,7 @@ exports.sourceNodes = async ({
             iFrameMarkup = `<iframe
               class="facebook-iframe"
               src="https://www.facebook.com/plugins/video.php?${querystring.stringify({ href: oEmbed.url, show_text: false })}"
-              style="width:100%;border:none;overflow:hidden;"
+              style="width:100%;max-height:${oEmbed.height}px;border:none;overflow:hidden;"
               allowTransparency="true"
               allow="encrypted-media"
             />`;

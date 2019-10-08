@@ -8,16 +8,20 @@ const providerBaseUrlMap = {
 };
 
 const fetchOEmbedData = async (provider, url) => {
-  const params = {
+  let params = {
     url,
     format: 'json',
   };
+
+  if (provider === 'facebook') {
+    params = { ...params, maxwidth: 720 };
+  }
 
   // console.log(`${providerBaseUrlMap[provider]}?${querystring.stringify(params)}`);
 
   try {
     const response = await instance.get(
-      `${providerBaseUrlMap[provider]}?${querystring.stringify(params)}`,
+      `${providerBaseUrlMap[provider]}?${querystring.stringify(params)}`
     );
 
     return response.data;
