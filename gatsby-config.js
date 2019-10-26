@@ -12,7 +12,6 @@ module.exports = {
     `gatsby-plugin-sharp`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`,
     `gatsby-plugin-sass`,
     `gatsby-transformer-sharp`,
     `gatsby-transformer-remark`,
@@ -22,8 +21,8 @@ module.exports = {
       options: {
         name: `DJ Ciaran McAuley`,
         short_name: `Ciaran McAuley`,
-        start_url: `/`,
-        icon: `src/assets/images/logo-512x512.png`, // This path is relative to the root of the site.
+        start_url: `/posts`,
+        icon: `${__dirname}/src/assets/images/logo-512x512.png`, // This path is relative to the root of the site.
         background_color: "#525252",
         theme_color: "#ffffff",
         // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
@@ -35,6 +34,7 @@ module.exports = {
         crossOrigin: `use-credentials`,
       },
     },
+    `gatsby-plugin-offline`, // must be after gatsby-plugin-manifest
     {
       resolve: `gatsby-source-filesystem`,
       options: {
