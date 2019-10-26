@@ -9,21 +9,37 @@ const NavigationTop = () => {
         <Link to="/" partiallyActive={false} activeClassName={styles.active}>
           Home
         </Link>
-        <Link to="/posts/" partiallyActive={true} activeClassName={styles.active}>
+        <Link
+          to="/posts/"
+          partiallyActive={true}
+          activeClassName={styles.active}
+        >
           Posts
         </Link>
-        <Link to="/events/" partiallyActive={true} activeClassName={styles.active}>
+        <Link
+          to="/events/"
+          partiallyActive={true}
+          activeClassName={styles.active}
+        >
           Events
         </Link>
-        <Link to="/social/" partiallyActive={true} activeClassName={styles.active}>
+        <Link
+          to="/social/"
+          partiallyActive={true}
+          activeClassName={styles.active}
+        >
           Social
         </Link>
-        <Link to="/about/" partiallyActive={true} activeClassName={styles.active}>
+        <Link
+          to="/about/"
+          partiallyActive={true}
+          activeClassName={styles.active}
+        >
           About
         </Link>
-        <Link to="/contact/" partiallyActive={true} activeClassName={styles.active}>
+        {/*<Link to="/contact/" partiallyActive={true} activeClassName={styles.active}>
           Contact
-        </Link>
+        </Link>*/}
       </nav>
     </>
   );

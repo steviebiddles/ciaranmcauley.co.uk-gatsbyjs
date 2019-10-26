@@ -1,21 +1,24 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
+import { SocialIcon } from 'react-social-icons';
 import Layout from '../../components/layout';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import { Link } from 'gatsby';
 import Container from '@material-ui/core/Container';
 import Seo from '../../components/seo';
 import { makeStyles, Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import { blue } from '@material-ui/core/colors';
-
-import './post-list.scss';
+import { Helmet } from 'react-helmet';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
+import Grid from '@material-ui/core/Grid';
+
+import './post-list.scss';
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +30,20 @@ const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[500],
   },
+  stepper: {
+    maxWidth: '100%',
+    flexGrow: 1,
+  },
+  paging: {
+    marginTop: '1rem',
+    marginBottom: '1rem',
+  },
+  numbers: {
+    textAlign: 'center',
+  },
+  next: {
+    textAlign: 'right',
+  },
 });
 
 const pageTitle = 'Posts';
@@ -35,32 +52,37 @@ const Post = ({ node }) => {
   const {
     message,
     createdTime,
-    iFrameMarkup,
+    oEmbedFacebook,
+    oEmbedSoundCloud,
     fullPicture,
     permalinkUrl,
-    messageTags,
+    // messageTags,
   } = node;
-  const styles = useStyles();
+  const hasMedia = oEmbedFacebook || oEmbedSoundCloud;
 
   return (
     <article>
       <Card>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={styles.avatar}>
-              F
-            </Avatar>
+            <SocialIcon network="facebook" fgColor="#fff" style={{ height: 40, width: 40 }} />
           }
-          title={'Ciaran McAuley'}
+          title={'Facebook'}
           subheader={createdTime}
         />
-        {iFrameMarkup && (
+        {oEmbedFacebook && (
           <section
             style={{ textAlign: 'center' }}
-            dangerouslySetInnerHTML={{ __html: iFrameMarkup }}
+            dangerouslySetInnerHTML={{ __html: oEmbedFacebook.html }}
           />
         )}
-        {!iFrameMarkup && fullPicture && (
+        {oEmbedSoundCloud && (
+          <section
+            style={{ textAlign: 'center' }}
+            dangerouslySetInnerHTML={{ __html: oEmbedSoundCloud.html }}
+          />
+        )}
+        {!hasMedia && fullPicture && (
           <CardMedia
             component={'img'}
             alt={`Post cover image`}
@@ -73,11 +95,6 @@ const Post = ({ node }) => {
           <Typography component="p" gutterBottom>
             {message}
           </Typography>
-          {/*{messageTags && (
-            messageTags.map((tag) => {
-              return <Typography variant="body2" component={'span'} className={'tag'}>#{tag.name} </Typography>
-            })
-          )}*/}
         </CardContent>
         <CardActions className={'post-actions'}>
           <a href={permalinkUrl} target={'_blank'}>
@@ -106,7 +123,15 @@ const PostList = ({ data, pageContext }) => {
   return (
     <>
       <Seo title={pageTitle} />
+      <Helmet>
+        <script
+          async
+          defer
+          src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"
+        ></script>
+      </Helmet>
       <Layout title={pageTitle}>
+        <div id="fb-root"></div>
         <Container maxWidth={'lg'} className={styles.root}>
           <Hidden smDown>
             <Typography variant={'srOnly'} component={'h1'}>
@@ -117,31 +142,42 @@ const PostList = ({ data, pageContext }) => {
             return <Post key={index} node={edge.node} />;
           })}
 
-          <hr />
-
-          {!isFirst && (
-            <Button
-              component={Link}
-              to={`/posts/${prevPage}`}
-              rel={'prev'}
-              variant={'contained'}
-              color={'primary'}
+          <section className={styles.paging}>
+            <Grid
+              container
+              direction="row"
+              justify="space-evenly"
+              alignItems="center"
             >
-              ← Previous Page
-            </Button>
-          )}
-
-          {!isLast && (
-            <Button
-              component={Link}
-              to={`/posts/${nextPage}`}
-              rel={'next'}
-              variant={'contained'}
-              color={'primary'}
-            >
-              Next Page →
-            </Button>
-          )}
+              <Grid item xs={4} className={'back'}>
+                <Button
+                  component={Link}
+                  to={`/posts/${prevPage}`}
+                  rel={'back'}
+                  disabled={isFirst}
+                >
+                  <KeyboardArrowLeft />
+                  Back
+                </Button>
+              </Grid>
+              <Grid item xs={4} className={styles.numbers}>
+                <Typography component="span" gutterBottom>
+                  {currentPage} / {numPages}
+                </Typography>
+              </Grid>
+              <Grid item xs={4} className={styles.next}>
+                <Button
+                  component={Link}
+                  to={`/posts/${nextPage}`}
+                  rel={'next'}
+                  disabled={isLast}
+                >
+                  Next
+                  <KeyboardArrowRight />
+                </Button>
+              </Grid>
+            </Grid>
+          </section>
         </Container>
       </Layout>
     </>
@@ -160,7 +196,12 @@ export const query = graphql`
           id
           message
           fullPicture
-          iFrameMarkup
+          oEmbedFacebook {
+            html
+          }
+          oEmbedSoundCloud {
+            html
+          }
           permalinkUrl
           createdTime(formatString: "MMMM Do, YYYY")
           messageTags {

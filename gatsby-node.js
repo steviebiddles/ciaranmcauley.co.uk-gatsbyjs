@@ -5,7 +5,6 @@
  */
 
 const path = require('path');
-const querystring = require('querystring');
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -61,25 +60,18 @@ exports.sourceNodes = async ({
       const facebookPost = facebookPosts[i];
 
       if (facebookPost.message) {
-        let iFrameMarkup;
+        let oEmbedFacebook;
+        let oEmbedSoundCloud;
 
         if (facebookPost.attachments) {
           const { media_type, target, url } = facebookPost.attachments.data[0];
 
-          if (media_type === 'video' && !url.includes('youtu.be')) { // Todo: Work this out it will be nice
-            const oEmbed = await fetchOEmbedData('facebook', target.url);
-            iFrameMarkup = `<iframe
-              class="facebook-iframe"
-              src="https://www.facebook.com/plugins/video.php?${querystring.stringify({ href: oEmbed.url, show_text: false })}"
-              style="width:100%;max-height:${oEmbed.height}px;border:none;overflow:hidden;"
-              allowTransparency="true"
-              allow="encrypted-media"
-            />`;
+          if (media_type === 'video' && !url.includes('youtu.be')) {
+            oEmbedFacebook = await fetchOEmbedData('facebook', target.url);
           }
 
           if (media_type === 'music' && url.includes('soundcloud.com')) {
-            const oEmbed = await fetchOEmbedData('soundCloud', url);
-            iFrameMarkup = oEmbed.html;
+            oEmbedSoundCloud = await fetchOEmbedData('soundCloud', url);
           }
         }
 
@@ -87,10 +79,10 @@ exports.sourceNodes = async ({
           id: createNodeId(`FacebookPost-${facebookPost.id}`),
           postId: facebookPost.id,
           message: facebookPost.message,
-          // picture: facebookPost.picture,
           fullPicture: facebookPost.full_picture,
           attachments: facebookPost.attachments,
-          iFrameMarkup,
+          oEmbedFacebook,
+          oEmbedSoundCloud,
           permalinkUrl: facebookPost.permalink_url,
           messageTags: facebookPost.message_tags,
           createdTime: facebookPost.created_time,

@@ -8,14 +8,13 @@ import { theme } from '../config/theme';
 import '../assets/styles/styles.scss';
 
 function Layout(props) {
-  const { width, children } = props;
+  const { children } = props;
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header title={props.title} />
-        {/*<h1>Current width: {width}</h1>*/}
         <main>{children}</main>
         <Footer />
       </ThemeProvider>

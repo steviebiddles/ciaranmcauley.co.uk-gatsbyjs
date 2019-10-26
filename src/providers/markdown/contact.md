@@ -1,13 +1,10 @@
 ---
 title: Contact
-description: This is the contact page
+description: Get in touch and bookings
 ---
 
-<p>Fusce id lorem ut ipsum vehicula tempor. Suspendisse vitae porttitor felis. Ut venenatis ante sit amet mauris tincidunt, vel pharetra diam volutpat.</p>
-<p>Next paragraph tag 123</p>
+##Worldwide Booking & Management
 
-```javascript
-function test() {
- console.log("look ma’, no spaces");
-}
-```
+###Audio Religion
+**Contact:** Chris Duncan  
+**Email:** [chris@audioreligion.co.uk](mailto:chris@audioreligion.co.uk) 

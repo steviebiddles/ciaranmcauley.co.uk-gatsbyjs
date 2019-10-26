@@ -5,36 +5,11 @@ import Container from '@material-ui/core/Container';
 import { graphql } from 'gatsby';
 import { Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
-import Img from 'gatsby-image';
-
-const Address = props => {
-  const { address, townCity, postCode, country } = props.location;
-
-  return (
-    <>
-      <address>
-        <Typography variant={'h6'} component={'h6'}>
-          {address}
-        </Typography>
-        <Typography variant={'body1'}>
-          {townCity},<br />
-          {postCode},<br />
-          {country}
-        </Typography>
-      </address>
-      <hr />
-    </>
-  );
-};
 
 const ContactPage = ({ data }) => {
-  const { content, locations, gatsbyLogo } = data;
+  const { content } = data;
   const { childMarkdownRemark } = content;
   const { title, description } = childMarkdownRemark.frontmatter;
-  const { html } = childMarkdownRemark;
-
-  const { childJsonJson } = locations;
-  const { childImageSharp } = gatsbyLogo;
 
   return (
     <>
@@ -46,23 +21,18 @@ const ContactPage = ({ data }) => {
               {title}
             </Typography>
           </Hidden>
-          <Typography
-            variant={'body1'}
-            component={'div'}
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-          <hr/>
-          <Typography variant={'h5'} component={'h2'} gutterBottom>
-            Image
+          <Typography variant="h2" color={'primary-main'} gutterBottom>
+            Audio Religion
           </Typography>
-          <Img fixed={childImageSharp.fixed} fadeIn={false} alt="Ciaran McAuley logo" />
-          <hr />
-          <Typography variant={'h5'} component={'h2'} gutterBottom>
-            Locations
+          <Typography variant="body1">
+            Worldwide Booking & Management
           </Typography>
-          {childJsonJson.locations.map((location, index) => {
-            return <Address key={index} location={location} />;
-          })}
+          <br/>
+          <Typography variant="body1">
+            <strong><u>Booking Agent</u></strong><br/>
+            Chris Duncan<br/>
+            <a href="mailto:chris@audioreligion.co.uk">chris@audioreligion.co.uk</a>
+          </Typography>
         </Container>
       </Layout>
     </>
@@ -80,31 +50,16 @@ export const query = graphql`
           title
           description
         }
-        html
       }
     }
 
-    locations: file(
-      sourceInstanceName: { eq: "json" }
-      relativePath: { eq: "contact.json" }
-    ) {
-      childJsonJson {
-        locations {
-          address
-          country
-          postCode
-          townCity
-        }
-      }
-    }
-    
-    gatsbyLogo: file(
+    bookingImage: file(
       sourceInstanceName: { eq: "images" }
-      relativePath: { eq: "gatsby-logo.png" }
+      relativePath: { eq: "contact.png" }
     ) {
       childImageSharp {
-        fixed(width: 100) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 720) {
+          ...GatsbyImageSharpFluid
         }
       }
     }

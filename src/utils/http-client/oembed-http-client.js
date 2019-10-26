@@ -14,7 +14,7 @@ const fetchOEmbedData = async (provider, url) => {
   };
 
   if (provider === 'facebook') {
-    params = { ...params, maxwidth: 720 };
+    params = { ...params, maxwidth: 720, omitscript: true };
   }
 
   // console.log(`${providerBaseUrlMap[provider]}?${querystring.stringify(params)}`);

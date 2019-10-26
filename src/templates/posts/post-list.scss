@@ -8,28 +8,6 @@ article {
     text-decoration: none;
   }
 
-  iframe {
-    &.facebook-iframe {
-      height: 180px;
-
-      @media (min-width: 375px) {
-        height: 210px;
-      }
-
-      @media (min-width: 480px) {
-        height: 280px;
-      }
-
-      @media (min-width: 600px) {
-        height: 340px;
-      }
-
-      @media (min-width: 720px) {
-        height: 405px;
-      }
-    }
-  }
-
   .tag {
     color: $primary-main;
   }

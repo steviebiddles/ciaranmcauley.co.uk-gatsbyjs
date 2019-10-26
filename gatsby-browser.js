@@ -4,7 +4,12 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-exports.onRouteUpdate = ({ location, prevLocation }) => {
-  console.log('new pathname', location.pathname);
-  console.log('old pathname', prevLocation ? prevLocation.pathname : null);
+exports.onRouteUpdate = () => {
+  if (window.FB) {
+    const FB = window.FB;
+
+    requestAnimationFrame(() => {
+      FB.XFBML.parse();
+    });
+  }
 };

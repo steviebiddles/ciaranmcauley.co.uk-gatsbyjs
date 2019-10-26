@@ -14,10 +14,18 @@ const Footer = () => {
         <footer className={styles.desktopFooter}>
           <Container maxWidth="lg">
             <Grid container>
-              <Grid item xs={6}>
-                <Typography variant="body1">Copyright &copy; 2019</Typography>
+              <Grid item xs={9}>
+                <Typography variant="h4">
+                  Audio Religion
+                </Typography>
+                <Typography variant="body1">
+                  Worldwide Booking & Management
+                </Typography>
+                <Typography variant="body1">
+                  <a href="mailto:chris@audioreligion.co.uk">chris@audioreligion.co.uk</a>
+                </Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
                 <NavigationBottom />
               </Grid>
             </Grid>
