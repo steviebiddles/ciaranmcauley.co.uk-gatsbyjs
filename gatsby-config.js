@@ -21,7 +21,7 @@ module.exports = {
       options: {
         name: `DJ Ciaran McAuley`,
         short_name: `Ciaran McAuley`,
-        start_url: `/posts`,
+        start_url: `/posts/`,
         icon: `${__dirname}/src/assets/images/logo-512x512.png`, // This path is relative to the root of the site.
         background_color: "#525252",
         theme_color: "#ffffff",
