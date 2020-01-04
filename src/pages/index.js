@@ -1,24 +1,10 @@
-import React from 'react';
-import Layout from '../components/layout';
-import Seo from '../components/seo';
-import Container from '@material-ui/core/Container';
-import { Typography } from '@material-ui/core';
-import Hidden from '@material-ui/core/Hidden';
+import { useEffect } from 'react';
+import { navigate } from 'gatsby';
 
-const pageTitle = 'Homepage';
+export default () => {
+  useEffect(() => {
+    navigate('/posts/');
+  }, []);
 
-export default () => (
-  <>
-    <Seo title={pageTitle} />
-    <Layout title={pageTitle}>
-      <Container maxWidth={'lg'}>
-        <Hidden smDown>
-          <Typography variant={'srOnly'} component={'h1'}>
-            {pageTitle}
-          </Typography>
-        </Hidden>
-        <Typography variant={'body1'}>Hello World! Still need to decide on what to put here!!!</Typography>
-      </Container>
-    </Layout>
-  </>
-);
+  return null;
+};

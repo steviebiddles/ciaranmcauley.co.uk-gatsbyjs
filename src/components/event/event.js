@@ -37,6 +37,7 @@ const Event = ({ event }) => {
           <a
             href={event.ticketUri}
             target={'_blank'}
+            rel="noopener noreferrer"
           >
             <Button size="small" color="primary">
               Get Tickets
@@ -46,6 +47,7 @@ const Event = ({ event }) => {
         <a
           href={`https://www.facebook.com/events/${event.eventId}`}
           target={'_blank'}
+          rel="noopener noreferrer"
         >
           <Button size="small" color="primary">
             Full Details

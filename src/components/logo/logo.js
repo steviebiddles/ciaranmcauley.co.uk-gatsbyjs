@@ -18,7 +18,7 @@ const Logo = () => {
   const { childImageSharp: imageSharpData } = logo.file;
 
   return (
-    <Link to="/">
+    <Link to="/posts/">
       <Img fixed={imageSharpData.fixed} fadeIn={false} alt="Ciaran McAuley logo" />
     </Link>
   );

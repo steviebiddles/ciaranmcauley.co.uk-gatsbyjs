@@ -20,9 +20,9 @@ import Grid from '@material-ui/core/Grid';
 
 import './post-list.scss';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    ['@media (max-width: 960px)']: {
+    [theme.breakpoints.up('md')]: {
       paddingLeft: 0,
       paddingRight: 0,
     },
@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   next: {
     textAlign: 'right',
   },
-});
+}));
 
 const pageTitle = 'Posts';
 
@@ -97,7 +97,7 @@ const Post = ({ node }) => {
           </Typography>
         </CardContent>
         <CardActions className={'post-actions'}>
-          <a href={permalinkUrl} target={'_blank'}>
+          <a href={permalinkUrl} target={'_blank'} rel="noopener noreferrer">
             <Button size="small" color="primary">
               Full Details
             </Button>

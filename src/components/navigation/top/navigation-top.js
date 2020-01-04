@@ -6,9 +6,9 @@ const NavigationTop = () => {
   return (
     <>
       <nav className={styles.navigationTop}>
-        <Link to="/" partiallyActive={false} activeClassName={styles.active}>
+        {/*<Link to="/" partiallyActive={false} activeClassName={styles.active}>
           Home
-        </Link>
+        </Link>*/}
         <Link
           to="/posts/"
           partiallyActive={true}

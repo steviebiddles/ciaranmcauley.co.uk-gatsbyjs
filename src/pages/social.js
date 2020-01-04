@@ -38,7 +38,7 @@ const SocialPage = () => {
           </Hidden>
 
           <div className={classes.root}>
-            <Typography variant={'body'} component={'h3'} gutterBottom>Find me on:</Typography>
+            <Typography component={'h3'} gutterBottom>Find me on:</Typography>
             <Grid container spacing={2} className={'social-grid'}>
               <Grid item xs={6}>
                 <a

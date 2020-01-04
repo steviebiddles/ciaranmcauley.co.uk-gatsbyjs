@@ -16,6 +16,53 @@ const {
   fetchOEmbedData,
 } = require('./src/utils/http-client/oembed-http-client');
 
+/*"cover": {
+                "offset_x": 50,
+                "offset_y": 50,
+                "source": "https://scontent.xx.fbcdn.net/v/t1.0-9/s720x720/71240646_2417265471873775_4459994276113154048_n.jpg?_nc_cat=110&_nc_oc=AQkHUPo3DQKJxC_in5weA90uvxAqU7fwYkST1n64ag46QeKdDG5a9XR_cF1td4ij9Gw&_nc_ht=scontent.xx&oh=d62c8549e2737c1bbd455b664ba8fef6&oe=5E5230BA",
+                "id": "2417265465207109"
+            },*/
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  const typeDefs = `
+    type Cover {
+      id: String
+      offset_x: Int
+      offset_y: Int
+      source: String
+    }
+    
+    type Location {
+      city: String
+      country: String
+      latitude: Float
+      longitude: Float
+      street: String
+      zip: String
+    }
+    
+    type Place {
+      id: String
+      name: String
+      location: Location
+    }
+
+    type FacebookEvent implements Node {
+      eventId: String
+      name: String
+      cover: Cover
+      startTime: Date
+      endTime: Date
+      place: Place
+      ticketUri: String
+      attendingCount: Int
+      interestedCount: Int
+    }
+  `;
+  createTypes(typeDefs)
+};
+
 exports.sourceNodes = async ({
   actions,
   createNodeId,

@@ -8,14 +8,14 @@ import { graphql } from 'gatsby';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    ['@media (max-width: 960px)']: {
+    [theme.breakpoints.up('md')]: {
       paddingLeft: 0,
       paddingRight: 0,
     },
   },
-});
+}));
 
 const EventPage = ({ data }) => {
   const { childMarkdownRemark } = data.page;
@@ -26,7 +26,7 @@ const EventPage = ({ data }) => {
 
   return (
     <>
-      <Seo title={title} description={description} />
+      <Seo title={title} description={description}/>
       <Layout title={title}>
         <Container maxWidth={'md'} className={styles.root}>
           <Hidden smDown>
@@ -36,7 +36,7 @@ const EventPage = ({ data }) => {
           </Hidden>
           <section>
             {facebookEvents.edges.map((edge, index) => {
-              return <Event key={index} event={edge.node}/>
+              return <Event key={index} event={edge.node}/>;
             })}
           </section>
         </Container>
@@ -46,8 +46,10 @@ const EventPage = ({ data }) => {
 };
 
 export const query = graphql`
-  query FacebookEvent {
-    allFacebookEvent(sort: { fields: startTime, order: ASC }) {
+  query facebookEventListQuery {
+    allFacebookEvent(
+      sort: { fields: startTime, order: ASC }
+    ) {
       edges {
         node {
           id
@@ -71,7 +73,7 @@ export const query = graphql`
         }
       }
     }
-
+    
     page: file(
       sourceInstanceName: { eq: "markdown" }
       relativePath: { eq: "events.md" }
