@@ -19,10 +19,11 @@ import CardActions from '@material-ui/core/CardActions';
 import Grid from '@material-ui/core/Grid';
 
 import './post-list.scss';
+import Masonry from 'react-masonry-css';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.down('md')]: {
       paddingLeft: 0,
       paddingRight: 0,
     },
@@ -62,7 +63,7 @@ const Post = ({ node }) => {
 
   return (
     <article>
-      <Card>
+      <Card raised={true} square={true} >
         <CardHeader
           avatar={
             <SocialIcon network="facebook" fgColor="#fff" style={{ height: 40, width: 40 }} />
@@ -116,9 +117,14 @@ const PostList = ({ data, pageContext }) => {
   const prevPage = currentPage - 1 === 1 ? '/' : (currentPage - 1).toString();
   const nextPage = (currentPage + 1).toString();
 
-  const { allFacebookPost: facebookPosts } = data;
-
   const styles = useStyles();
+
+  const { allFacebookPost: facebookPosts } = data;
+  const breakpointColumnsObj = {
+    default: 3,
+    1024: 2,
+    640: 1
+  };
 
   return (
     <>
@@ -138,9 +144,17 @@ const PostList = ({ data, pageContext }) => {
               {pageTitle}
             </Typography>
           </Hidden>
-          {facebookPosts.edges.map((edge, index) => {
-            return <Post key={index} node={edge.node} />;
-          })}
+
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column">
+            {/* array of JSX items */}
+
+            {facebookPosts.edges.map((edge, index) => {
+              return <Post key={index} node={edge.node} />;
+            })}
+          </Masonry>
 
           <section className={styles.paging}>
             <Grid

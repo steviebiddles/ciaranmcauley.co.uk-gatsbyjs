@@ -7,10 +7,11 @@ import Event from '../components/event';
 import { graphql } from 'gatsby';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core';
+import Masonry from 'react-masonry-css';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.down('md')]: {
       paddingLeft: 0,
       paddingRight: 0,
     },
@@ -24,20 +25,33 @@ const EventPage = ({ data }) => {
 
   const styles = useStyles();
 
+  const breakpointColumnsObj = {
+    default: 3,
+    1024: 2,
+    640: 1
+  };
+
   return (
     <>
       <Seo title={title} description={description}/>
       <Layout title={title}>
-        <Container maxWidth={'md'} className={styles.root}>
+        <Container maxWidth={'lg'} className={styles.root}>
           <Hidden smDown>
             <Typography variant={'srOnly'} component={'h1'}>
               {title}
             </Typography>
           </Hidden>
           <section>
-            {facebookEvents.edges.map((edge, index) => {
-              return <Event key={index} event={edge.node}/>;
-            })}
+            <Masonry
+              breakpointCols={breakpointColumnsObj}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column">
+              {/* array of JSX items */}
+
+              {facebookEvents.edges.map((edge, index) => {
+                return <Event key={index} event={edge.node}/>;
+              })}
+            </Masonry>
           </section>
         </Container>
       </Layout>

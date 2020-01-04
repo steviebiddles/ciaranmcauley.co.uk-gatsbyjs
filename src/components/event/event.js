@@ -25,11 +25,13 @@ const Event = ({ event }) => {
         <Typography gutterBottom variant="subtitle1" color={'primary'}>
           {startDateTime.format('ddd, Do MMMM YYYY')}
         </Typography>
-        <Typography variant={'h4'} component={'h2'} color={'textPrimary'}>
+        <Typography variant={'h5'} component={'h2'} color={'textPrimary'}>
           {event.name}
         </Typography>
         <Typography gutterBottom variant={'subtitle2'} color={'textSecondary'}>
-          {event.place.name} - {event.place.location.city}, {event.place.location.country}
+          {event.place.name}
+          {event.place.location && (` - ${event.place.location.city}`)}
+          {event.place.location && (`, ${event.place.location.country}`)}
         </Typography>
       </CardContent>
       <CardActions className={'event-actions'}>

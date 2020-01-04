@@ -16,13 +16,6 @@ const {
   fetchOEmbedData,
 } = require('./src/utils/http-client/oembed-http-client');
 
-/*"cover": {
-                "offset_x": 50,
-                "offset_y": 50,
-                "source": "https://scontent.xx.fbcdn.net/v/t1.0-9/s720x720/71240646_2417265471873775_4459994276113154048_n.jpg?_nc_cat=110&_nc_oc=AQkHUPo3DQKJxC_in5weA90uvxAqU7fwYkST1n64ag46QeKdDG5a9XR_cF1td4ij9Gw&_nc_ht=scontent.xx&oh=d62c8549e2737c1bbd455b664ba8fef6&oe=5E5230BA",
-                "id": "2417265465207109"
-            },*/
-
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   const typeDefs = `
@@ -171,7 +164,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   // Create posts pages
   const posts = result.data.allFacebookPost.edges;
-  const postsPerPage = parseInt(process.env.POST_PER_PAGE, 10) || 10;
+  const postsPerPage = parseInt(process.env.POST_PER_PAGE, 10) || 20;
   const numPages = Math.ceil(posts.length / postsPerPage);
 
   Array.from({ length: numPages }).forEach((_, i) => {
