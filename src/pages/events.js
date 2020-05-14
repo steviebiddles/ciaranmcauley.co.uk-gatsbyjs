@@ -69,7 +69,7 @@ const EventPage = ({ data }) => {
 export const query = graphql`
     query facebookEventListQuery {
         allFacebookEvent(
-            sort: { fields: startTime, order: ASC }
+            sort: { fields: startTime, order: DESC }
         ) {
             edges {
                 node {
