@@ -28,11 +28,13 @@ const Event = ({ event }) => {
         <Typography variant={'h5'} component={'h2'} color={'textPrimary'}>
           {event.name}
         </Typography>
-        <Typography gutterBottom variant={'subtitle2'} color={'textSecondary'}>
-          {event.place.name}
-          {event.place.location && (` - ${event.place.location.city}`)}
-          {event.place.location && (`, ${event.place.location.country}`)}
-        </Typography>
+        {event.place && (
+          <Typography gutterBottom variant={'subtitle2'} color={'textSecondary'}>
+            {event.place.name}
+            {event.place.location && (` - ${event.place.location.city}`)}
+            {event.place.location && (`, ${event.place.location.country}`)}
+          </Typography>
+        )}
       </CardContent>
       <CardActions className={'event-actions'}>
         {event.ticketUri && (

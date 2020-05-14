@@ -42,16 +42,23 @@ const EventPage = ({ data }) => {
             </Typography>
           </Hidden>
           <section>
-            <Masonry
-              breakpointCols={breakpointColumnsObj}
-              className="my-masonry-grid"
-              columnClassName="my-masonry-grid_column">
-              {/* array of JSX items */}
+            {facebookEvents.edges.length > 0 && (
+              <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column">
+                {/* array of JSX items */}
 
-              {facebookEvents.edges.map((edge, index) => {
-                return <Event key={index} event={edge.node}/>;
-              })}
-            </Masonry>
+                {facebookEvents.edges.map((edge, index) => {
+                  return <Event key={index} event={edge.node}/>;
+                })}
+              </Masonry>
+            )}
+            {facebookEvents.edges.length === 0 && (
+              <Typography component={'h5'} align={'center'}>
+                No upcoming events. Check back soon.
+              </Typography>
+            )}
           </section>
         </Container>
       </Layout>
@@ -60,46 +67,46 @@ const EventPage = ({ data }) => {
 };
 
 export const query = graphql`
-  query facebookEventListQuery {
-    allFacebookEvent(
-      sort: { fields: startTime, order: ASC }
-    ) {
-      edges {
-        node {
-          id
-          eventId
-          name
-          attendingCount
-          interestedCount
-          cover {
-            source
-          }
-          startTime
-          endTime
-          place {
-            name
-            location {
-              city
-              country
+    query facebookEventListQuery {
+        allFacebookEvent(
+            sort: { fields: startTime, order: ASC }
+        ) {
+            edges {
+                node {
+                    id
+                    eventId
+                    name
+                    attendingCount
+                    interestedCount
+                    cover {
+                        source
+                    }
+                    startTime
+                    endTime
+                    place {
+                        name
+                        location {
+                            city
+                            country
+                        }
+                    }
+                    ticketUri
+                }
             }
-          }
-          ticketUri
         }
-      }
-    }
-    
-    page: file(
-      sourceInstanceName: { eq: "markdown" }
-      relativePath: { eq: "events.md" }
-    ) {
-      childMarkdownRemark {
-        frontmatter {
-          title
-          description
+
+        page: file(
+            sourceInstanceName: { eq: "markdown" }
+            relativePath: { eq: "events.md" }
+        ) {
+            childMarkdownRemark {
+                frontmatter {
+                    title
+                    description
+                }
+            }
         }
-      }
     }
-  }
 `;
 
 export default EventPage;
