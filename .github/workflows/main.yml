@@ -3,7 +3,7 @@ name: Trigger Netlify Build
 on:
   schedule:
     # Run every 4 hours
-    - cron: '0 */4 * * *'
+    - cron: '0 */12 * * *'
 
 jobs:
   build:
@@ -11,4 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Curl request
-        run: curl -X POST -d {} https://api.netlify.com/build_hooks/5ebdad127c8badced259cea0
+        run: echo 'need to fix issue with facebook embed video!'
+        #run: curl -X POST -d {} https://api.netlify.com/build_hooks/5ebdad127c8badced259cea0
